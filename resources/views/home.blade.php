@@ -1,6 +1,5 @@
 <x-next>
     <x-slot:title>
-        {{$title}}
+        {{ $title = 'Home' }}
     </x-slot:title>
 </x-next>
-

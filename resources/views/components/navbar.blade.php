@@ -19,13 +19,13 @@
                              <x-slot:title>
                                  {{ $title }}
                              </x-slot:title>
-                                Next Layout
+                             Next Layout
                          </x-nav-link>
                          <x-nav-link href="/new" :verify="request()->Is('new')">
                              <x-slot:title>
                                  {{ $title }}
                              </x-slot:title>
-                                New Layout
+                             New Layout
                          </x-nav-link>
                          <a href="#"
                              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Calendar</a>
@@ -66,9 +66,12 @@
                                  profile</a>
                              <a href="#"
                                  class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden">Settings</a>
-                             <a href="#"
-                                 class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden">Sign
-                                 out</a>
+                             <form action="{{ route('logout') }}" method="POST">
+                                 @csrf
+                                 <a href="/logout"
+                                     class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden">Sign
+                                     out</a>
+                             </form>
                          </el-menu>
                      </el-dropdown>
                  </div>
