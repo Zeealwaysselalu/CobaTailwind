@@ -1,39 +1,54 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Middleware\Ceklogin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
+Route::middleware('auth')->group(function(){
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+    Route::get('/profile', function () {
+    return view('profile');
+    });
 
-Route::get('/login', function () {
-    return view('login');
+    Route::get('/home', function () {
+        return view('home', ["title" => "Home"]);
+    })->name('home');
+
+    Route::get('/layout', function () {
+        return view('layout');
+    });
+
+    Route::get('/new', function () {
+        return view('newLayout', ["title" => "New Layout"]);
+    });
+
+    Route::get('/next', function () {
+        return view('nextpage', ["title" => "Next Page"]);
+    });
+
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::post('/login', [AuthController::class, 'auth'])->name('login');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::middleware('guest')->group(function(){
 
-Route::get('/layout', function () {
-    return view('layout');
-})->middleware(Ceklogin::class);
+    Route::get('/login', function () {
+        return view('login');
+    })->middleware('guest')->name('login');
 
-Route::get('/new', function () {
-    return view('newLayout', ["title" => "New Layout"]);
-})->middleware(Ceklogin::class);;
+    Route::post('/login', [AuthController::class, 'auth'])->middleware('guest')->name('login');
 
-Route::get('/home', function () {
-    return view('home', ["title" => "Home"]);
-})->name('home');
+    Route::get('/register', function () {
+        return view('register');
+    });
 
-Route::get('/next', function () {
-    return view('nextpage', ["title" => "Next Page"]);
-})->middleware(Ceklogin::class);;
+    Route::get('/', function () {
+        return view('index');
+    })->name('index');
 
-Route::get('/register', function () {
-    return view('register');
+    Route::post('/storeAccount', [UserController::class, 'storeAccount'])->name('storeAccount');
 });
-Route::post('/storeAccount', [UserController::class, 'storeAccount'])->name('storeAccount');
+
+
+
+
+

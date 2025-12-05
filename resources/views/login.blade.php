@@ -10,10 +10,12 @@
 </head>
 
 <body class="h-full">
+    <nav class="mx-auto flex h-[72px] max-w-[1920px] flex-1 items-center justify-between gap-8"><a data-discover="true"
+            href="/"><img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" height="50" width="50"
+                decoding="async" loading="eager" class="ml-5"></a>
+    </nav>
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company"
-                class="mx-auto h-10 w-auto" />
             <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Masuk ke Akun Anda</h2>
         </div>
 
@@ -51,7 +53,8 @@
 
             <p class="mt-10 text-center text-sm/6 text-gray-400">
                 Don't have an account?
-                <a href="/register" class="font-semibold text-indigo-400 hover:text-indigo-300">Register your account
+                <a href="/register" class="font-semibold text-indigo-400 hover:text-indigo-300">Register your
+                    account
                 </a>
             </p>
         </div>
