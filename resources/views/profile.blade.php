@@ -45,8 +45,18 @@
             </div>
 
             <div class="absolute -bottom-16 left-8 flex items-end">
-                <img src="https://i.pravatar.cc/300?img=11" alt="Profile"
+                <img src="{{ asset('storage/images/'. $dataprofil->image) }}" alt="Profil"
                     class="w-32 h-32 rounded-full border-4 border-dark-900 shadow-2xl object-cover">
+
+                <a href="{{ route('edit.profile') }}"
+                    class="mb-4 px-4 py-2 bg-dark-800 border border-dark-600 rounded-lg text-sm text-gray-300 font-medium hover:bg-dark-700 hover:text-white hover:border-gray-500 transition shadow-lg flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                        </path>
+                    </svg>
+                    Edit Profil
+                </a>
             </div>
         </div>
 
@@ -55,8 +65,8 @@
             <div class="space-y-6">
 
                 <div class="bg-dark-800 p-6 rounded-2xl shadow-lg border border-dark-700">
-                    <h1 class="text-2xl font-bold text-white">Achmad Zaelani Putra</h1>
-                    <p class="text-gray-400 mb-4">Lulusan 2025</p>
+                    <h1 class="text-2xl font-bold text-white">{{ $dataprofil->username }}</h1>
+                    <p class="text-gray-400 mb-4">Lulusan {{ $dataprofil->lulusan }}</p>
 
                     <div
                         class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-900/50 text-blue-300 border border-blue-800 mb-4">
@@ -65,7 +75,7 @@
                                 d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
                             </path>
                         </svg>
-                        Rekayasa Perangkat Lunak
+                        {{ $dataprofil->jurusan }}
                     </div>
 
                     <div class="flex items-center gap-2 mb-6">
@@ -139,7 +149,17 @@
                                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
                                 </path>
                             </svg>
-                            budi.santoso@smkhebat.sch.id
+                            {{ $dataprofil->email }}
+                        </li>
+                        <li class="flex items-center hover:text-gray-200 transition">
+                            <svg class="w-5 h-5 mr-3 text-gray-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z">
+                                </path>
+                            </svg>
+
+                            {{ $dataprofil->phone }}
                         </li>
                         <li class="flex items-center hover:text-gray-200 transition">
                             <svg class="w-5 h-5 mr-3 text-gray-500" fill="none" stroke="currentColor"
@@ -148,7 +168,7 @@
                                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
                                 </path>
                             </svg>
-                            Malang, Jawa Timur
+                            {{ $dataprofil->addres }}
                         </li>
                     </ul>
                 </div>
@@ -160,9 +180,7 @@
                 <div class="bg-dark-800 p-8 rounded-2xl shadow-lg border border-dark-700">
                     <h3 class="text-lg font-bold text-white mb-4">Tentang Saya</h3>
                     <p class="text-gray-400 leading-relaxed">
-                        Saya adalah lulusan SMK jurusan RPL yang memiliki passion besar dalam pengembangan web. Selama
-                        sekolah, saya aktif mengikuti kegiatan coding club dan memiliki nilai rata-rata kompetensi
-                        kejuruan 90. Saya disiplin, cepat belajar, dan siap berkontribusi dalam tim development.
+                        {{ $dataprofil->about }}
                     </p>
                 </div>
 

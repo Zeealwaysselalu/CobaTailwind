@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class InfoUserController extends Controller
 {
-    public function edit(Request $request, $id)
+    public function edit(Request $request)
     {
         $request->validate([
             'username' => 'required|string|max:255',
@@ -19,8 +19,25 @@ class InfoUserController extends Controller
             'about' => 'required|string|max:500',
         ]);
 
-        // Update data
-        $id->update($request->about());
-        return redirect()->route('kelas.index')->with('success', 'Data kelas berhasil diubah.');
+        $profile = auth()->user()->infoUser;
+
+        // Update field SESUAI NAMA INPUT
+        $profile->username = $request->username;
+        $profile->addres = $request->addres;
+        $profile->phone = $request->phone;
+        $profile->about = $request->about;
+        $profile->lulusan = $request->lulusan;
+        $profile->jurusan = $request->jurusan;
+
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/images', $filename);
+            $profile->image = $filename;
+        }
+
+        $profile->save();
+
+        return redirect()->route('profile')->with('success', 'Profil berhasil diubah.');
     }
 }
