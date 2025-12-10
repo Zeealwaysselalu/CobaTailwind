@@ -38,6 +38,8 @@
     </nav>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <x-notification>
+        </x-notification>
 
         <div class="relative mb-8">
             <div
@@ -45,18 +47,23 @@
             </div>
 
             <div class="absolute -bottom-16 left-8 flex items-end">
-                <img src="{{ asset('storage/images/'. $dataprofil->image) }}" alt="Profil"
-                    class="w-32 h-32 rounded-full border-4 border-dark-900 shadow-2xl object-cover">
+                <div class="relative group cursor-pointer">
 
-                <a href="{{ route('edit.profile') }}"
-                    class="mb-4 px-4 py-2 bg-dark-800 border border-dark-600 rounded-lg text-sm text-gray-300 font-medium hover:bg-dark-700 hover:text-white hover:border-gray-500 transition shadow-lg flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                        </path>
-                    </svg>
-                    Edit Profil
-                </a>
+                    <img src="{{ asset('storage/images/' . $dataprofil->image) }}" alt="Profil"
+                        class="w-32 h-32 rounded-full border-4 border-dark-700 object-cover group-hover:opacity-75 transition">
+
+                    <a href="{{ route('edit.profile') }}"
+                        class="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                        </svg>
+
+                    </a>
+
+                </div>
             </div>
         </div>
 
@@ -65,24 +72,86 @@
             <div class="space-y-6">
 
                 <div class="bg-dark-800 p-6 rounded-2xl shadow-lg border border-dark-700">
-                    <h1 class="text-2xl font-bold text-white">{{ $dataprofil->username }}</h1>
-                    <p class="text-gray-400 mb-4">Lulusan {{ $dataprofil->lulusan }}</p>
+                    <div class="mb-6">
+                        <h1 class="text-2xl font-bold text-white">{{ $dataprofil->username }}</h1>
 
-                    <div
-                        class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-900/50 text-blue-300 border border-blue-800 mb-4">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                            </path>
-                        </svg>
-                        {{ $dataprofil->jurusan }}
+                        @if ($dataprofil->lulusan == null)
+                            <p class="text-gray-400 mb-4">Lulusan -</p>
+                        @else
+                            <p class="text-gray-400 mb-4">Lulusan {{ $dataprofil->lulusan }}</p>
+                        @endif
+
+                        @if ($dataprofil->jurusan == 'Rekayasa Perangkat Lunak')
+                            <div
+                                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                                <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                                </svg>
+                                {{ $dataprofil->jurusan }}
+                            </div>
+                        @endif
+
+                        @if ($dataprofil->jurusan == 'Teknik Kelistrikan')
+                            <div
+                                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">
+                                <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                                {{ $dataprofil->jurusan }}
+                            </div>
+                        @endif
+
+                        @if ($dataprofil->jurusan == 'Teknik Sipil')
+                            <div
+                                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-500/10 text-green-400 border border-green-500/20">
+                                <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                                    </path>
+                                </svg>
+                                {{ $dataprofil->jurusan }}
+                            </div>
+                        @endif
+
+                        @if ($dataprofil->jurusan == 'Teknik Mesin')
+                            <div
+                                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-500/10 text-red-400 border border-red-500/20">
+                                <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                                    </path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                {{ $dataprofil->jurusan }}
+                            </div>
+                        @endif
+
                     </div>
 
-                    <div class="flex items-center gap-2 mb-6">
-                        <span
-                            class="w-3 h-3 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.6)] animate-pulse"></span>
-                        <span class="text-sm font-semibold text-green-400">Siap Bekerja</span>
-                    </div>
+                    @if ($dataprofil->status == 'open')
+                        <div class="flex items-center gap-2 mb-4">
+                            <span
+                                class="w-3 h-3 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.6)] animate-pulse"></span>
+                            <span class="text-sm font-semibold text-green-400">Siap Bekerja</span>
+                        </div>
+                    @endif
+                    @if ($dataprofil->status == 'working')
+                        <div class="flex items-center gap-2 mb-4">
+                            <span
+                                class="w-3 h-3 bg-red-500 rounded-full shadow-[0_0_10px_rgba(239,68,68,0.6)] animate-pulse"></span>
+                            <span class="text-sm font-semibold text-red-400">Sudah Bekerja</span>
+                        </div>
+                    @endif
+                    @if ($dataprofil->status == 'study')
+                        <div class="flex items-center gap-2 mb-4">
+                            <span
+                                class="w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.6)] animate-pulse"></span>
+                            <span class="text-sm font-semibold text-blue-400">Melanjutkan Kuliah</span>
+                        </div>
+                    @endif
 
                     <div class="space-y-3">
                         <button

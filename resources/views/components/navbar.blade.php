@@ -9,7 +9,7 @@
                  <div class="hidden md:block">
                      <div class="ml-10 flex items-baseline space-x-4">
                          <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
-                         <x-nav-link href="/tes" :verify="request()->Is('tes')">
+                         <x-nav-link href="/home" :verify="request()->Is('home')">
                              <x-slot:title>
                                  {{ $title }}
                              </x-slot:title>
@@ -54,8 +54,7 @@
                              class="relative flex max-w-xs items-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
                              <span class="absolute -inset-1.5"></span>
                              <span class="sr-only">Open user menu</span>
-                             <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                 alt=""
+                             <img src="{{ asset('storage/images/' . $dataprofil->image) }}" alt=""
                                  class="size-8 rounded-full outline -outline-offset-1 outline-white/10" />
                          </button>
 
@@ -66,11 +65,17 @@
                                  profile</a>
                              <a href="#"
                                  class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden">Settings</a>
-                             <form action="{{ route('logout') }}" method="POST" >
+                             <form action="{{ route('logout') }}" method="POST">
                                  @csrf
                                  <button type="submit"
-                                     class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden">Sign
-                                     out</buttonty>
+                                     class="block w-full text-left px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden">Sign
+                                     out</button>
+                             </form>
+                             <form action="{{ route('deleteaccount') }}" method="POST">
+                                 @csrf
+                                 <button type="submit"
+                                     class="block w-full text-left px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden" >Hapus Akun
+                                     </button>
                              </form>
                          </el-menu>
                      </el-dropdown>

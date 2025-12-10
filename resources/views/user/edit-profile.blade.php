@@ -28,6 +28,9 @@
 
 <body class="bg-dark-900 font-sans text-gray-300">
 
+    <x-notification>
+    </x-notification>
+
     <nav class="bg-dark-800 border-b border-dark-700 sticky top-0 z-50">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
@@ -92,9 +95,9 @@
                         <label class="block text-sm font-medium text-gray-400 mb-2">Status Saat Ini</label>
                         <select name="status"
                             class="w-full bg-dark-900 border border-dark-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-primary outline-none transition appearance-none">
-                            <option value="open">🟢 Siap Bekerja (Open to Work)</option>
-                            <option value="working">🔴 Sudah Bekerja</option>
-                            <option value="study">🔵 Melanjutkan Kuliah</option>
+                            <option value="open" class="bg-gray-800 text-white">🟢 Siap Bekerja</option>
+                            <option value="working" class="bg-gray-800 text-white">🔴 Sudah Bekerja</option>
+                            <option value="study" class="bg-gray-800 text-white">🔵 Melanjutkan Kuliah</option>
                         </select>
                     </div>
 
@@ -116,11 +119,44 @@
                             class="w-full bg-dark-900 border border-dark-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition">
                     </div>
 
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Tahun Kelulusan</label>
+                        <input type="text" name="lulusan" value="{{ $dataprofil->lulusan }}"
+                            class="w-full bg-dark-900 border border-dark-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Jurusan</label>
+
+                        <select name="jurusan"
+                            class="w-full bg-dark-900 border border-dark-700 rounded-lg px-4 py-2.5 text-white
+               focus:ring-2 focus:ring-primary outline-none transition appearance-none">
+
+                            @php
+                                $listJurusan = [
+                                    'Rekayasa Perangkat Lunak',
+                                    'Teknik Kelistrikan',
+                                    'Teknik Sipil',
+                                    'Teknik Mesin',
+                                ];
+                            @endphp
+
+                            @foreach ($listJurusan as $jurusan)
+                                <option value="{{ $jurusan }}"
+                                    {{ $dataprofil->jurusan === $jurusan ? 'selected' : '' }}>
+                                    {{ $jurusan }}
+                                </option>
+                            @endforeach
+
+                        </select>
+                    </div>
+
+
                     <div class="col-span-2">
                         <label class="block text-sm font-medium text-gray-400 mb-2">Tentang Saya (Bio)</label>
                         <textarea name="about" rows="4"
                             class="w-full bg-dark-900 border border-dark-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition"
-                            placeholder="Ceritakan singkat tentang keahlian dan kepribadianmu..."></textarea>
+                            placeholder="Ceritakan singkat tentang keahlian dan kepribadianmu...">{{ $dataprofil->about }}</textarea>
                         <p class="text-xs text-gray-500 mt-2 text-right">Maksimal 300 karakter.</p>
                     </div>
                 </div>

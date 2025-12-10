@@ -16,7 +16,6 @@ class UserObserver
             'user_id' => $user->id,
             'username' => $user->email,
             'lulusan' => null,
-            'jurusan' => null,
             'email' => $user->email,
             'addres' => '-',
 

@@ -11,11 +11,12 @@
 
 <body class="h-full">
     <nav class="mx-auto flex h-[72px] max-w-[1920px] flex-1 items-center justify-between gap-8"><a data-discover="true"
-            href="/"><img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" height="50" width="50"
-                decoding="async" loading="eager" class="ml-5"></a>
+            href="/"><img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                height="50" width="50" decoding="async" loading="eager" class="ml-5"></a>
     </nav>
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <x-notification />
             <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Masuk ke Akun Anda</h2>
         </div>
 

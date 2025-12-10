@@ -22,11 +22,14 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
         ]);
+        if (User::where('email', $request->email)->exists()) {
+            return redirect()->route('register')->with('error', 'Email sudah terdaftar.');
+        }
         User::create([
             'email' => $request->email,
             'password' => ($request->password),
         ]);
-        return redirect()->route('index')->with('success', 'Akun berhasil dibuat.');
+        return redirect()->route('login')->with('success', 'Akun berhasil dibuat.');
     }
     public function checker(Request $request)
     {
@@ -40,6 +43,6 @@ class UserController extends Controller
             return redirect()->route('new');
         }
 
-        return redirect()->route('index')->with('error', 'Email atau password salah.');
+        return redirect()->route('login')->with('error', 'Email atau password salah.');
     }
 }
