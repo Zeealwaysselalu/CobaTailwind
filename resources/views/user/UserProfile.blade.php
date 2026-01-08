@@ -50,24 +50,8 @@
             <div class="absolute -bottom-16 left-8 flex items-end">
                 <div class="relative group cursor-pointer">
 
-                    @if ($dataprofil->slug != $infoprofil->slug)
-                        <img src="{{ asset('storage/images/' . $infoprofil->image) }}" alt="Profil"
-                            class="w-32 h-32 rounded-full border-4 border-dark-700 object-cover group-hover:opacity-75 transition">
-                    @else
-                        <img src="{{ asset('storage/images/' . $infoprofil->image) }}" alt="Profil"
-                            class="w-32 h-32 rounded-full border-4 border-dark-700 object-cover group-hover:opacity-75 transition">
-
-                        <a href="{{ route('edit.profile') }}"
-                            class="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                            </svg>
-
-                        </a>
-                    @endif
+                    <img src="{{ asset('storage/images/' . $dataprofil->image) }}" alt="Profil"
+                        class="w-32 h-32 rounded-full border-4 border-dark-700 object-cover group-hover:opacity-75 transition">
 
                 </div>
             </div>
@@ -79,37 +63,37 @@
 
                 <div class="bg-dark-800 p-6 rounded-2xl shadow-lg border border-dark-700">
                     <div class="mb-6">
-                        <h1 class="text-2xl font-bold text-white">{{ $infoprofil->username }}</h1>
+                        <h1 class="text-2xl font-bold text-white">{{ $dataprofil->username }}</h1>
 
-                        @if ($infoprofil->lulusan == null)
+                        @if ($dataprofil->lulusan == null)
                             <p class="text-gray-400 mb-4">Lulusan -</p>
                         @else
-                            <p class="text-gray-400 mb-4">Lulusan {{ $infoprofil->lulusan }}</p>
+                            <p class="text-gray-400 mb-4">Lulusan {{ $dataprofil->lulusan }}</p>
                         @endif
 
-                        @if ($infoprofil->jurusan == 'Rekayasa Perangkat Lunak')
+                        @if ($dataprofil->jurusan == 'Rekayasa Perangkat Lunak')
                             <div
                                 class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">
                                 <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                                 </svg>
-                                {{ $infoprofil->jurusan }}
+                                {{ $dataprofil->jurusan }}
                             </div>
                         @endif
 
-                        @if ($infoprofil->jurusan == 'Teknik Kelistrikan')
+                        @if ($dataprofil->jurusan == 'Teknik Kelistrikan')
                             <div
                                 class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">
                                 <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                                 </svg>
-                                {{ $infoprofil->jurusan }}
+                                {{ $dataprofil->jurusan }}
                             </div>
                         @endif
 
-                        @if ($infoprofil->jurusan == 'Teknik Sipil')
+                        @if ($dataprofil->jurusan == 'Teknik Sipil')
                             <div
                                 class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-500/10 text-green-400 border border-green-500/20">
                                 <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,11 +101,11 @@
                                         d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
                                     </path>
                                 </svg>
-                                {{ $infoprofil->jurusan }}
+                                {{ $dataprofil->jurusan }}
                             </div>
                         @endif
 
-                        @if ($infoprofil->jurusan == 'Teknik Mesin')
+                        @if ($dataprofil->jurusan == 'Teknik Mesin')
                             <div
                                 class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-500/10 text-red-400 border border-red-500/20">
                                 <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,27 +115,27 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 </svg>
-                                {{ $infoprofil->jurusan }}
+                                {{ $dataprofil->jurusan }}
                             </div>
                         @endif
 
                     </div>
 
-                    @if ($infoprofil->status == 'open')
+                    @if ($dataprofil->status == 'open')
                         <div class="flex items-center gap-2 mb-4">
                             <span
                                 class="w-3 h-3 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.6)] animate-pulse"></span>
                             <span class="text-sm font-semibold text-green-400">Siap Bekerja</span>
                         </div>
                     @endif
-                    @if ($infoprofil->status == 'working')
+                    @if ($dataprofil->status == 'working')
                         <div class="flex items-center gap-2 mb-4">
                             <span
                                 class="w-3 h-3 bg-red-500 rounded-full shadow-[0_0_10px_rgba(239,68,68,0.6)] animate-pulse"></span>
                             <span class="text-sm font-semibold text-red-400">Sudah Bekerja</span>
                         </div>
                     @endif
-                    @if ($infoprofil->status == 'study')
+                    @if ($dataprofil->status == 'study')
                         <div class="flex items-center gap-2 mb-4">
                             <span
                                 class="w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.6)] animate-pulse"></span>
@@ -170,7 +154,7 @@
                             Download CV & Portofolio
                         </button>
 
-                        @php $isShortlisted = false; @endphp
+                        @php $isShortlisted = true; @endphp
 
                         @if ($isShortlisted)
                             <button
@@ -268,13 +252,13 @@
                                 </path>
                             </svg>
                         </span>
-                        Pengalaman Kerja
+                        Pengalaman Magang / PKL
                     </h3>
 
                     <div class="relative border-l-2 border-dark-700 ml-3 space-y-8">
                         <div class="ml-6 relative">
                             <span
-                                class="absolute -left-[33px] top-1 w-4 h-4 bg-primary rounded-full border-2 border-dark-800"></span>
+                                class="absolute -left-[31px] top-1 w-4 h-4 bg-primary rounded-full border-2 border-dark-800"></span>
                             <h4 class="font-bold text-white text-md">Junior Web Developer (Intern)</h4>
                             <span class="text-sm text-primary font-medium">PT Solusi Digital Kreatif</span>
                             <span class="text-sm text-gray-600 mx-2">•</span>

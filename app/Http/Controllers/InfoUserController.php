@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InfoUser;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -73,6 +75,7 @@ class InfoUserController extends Controller
         $profile->jurusan = $request->jurusan;
         $profile->status = $request->status;
         $profile->email = $request->email;
+        $profile->slug = Str::slug($request->username);
 
         if ($request->hasFile('avatar')) {
 
@@ -88,7 +91,7 @@ class InfoUserController extends Controller
 
         $profile->save();
 
-        return redirect()->route('profile')->with('success', 'Profil berhasil diubah.');
+        return redirect()->route('user.show', $profile->slug)->with('success', 'Profil berhasil diubah.');
     }
 
     public function deleteAccount(Request $request)
@@ -100,11 +103,23 @@ class InfoUserController extends Controller
             Storage::disk('public')->delete('images/' . $profile->image);
         }
 
-        $user->delete();
-
+        $userId = $user->id;
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        \App\Models\User::find($userId)->delete();
+
         return redirect('/');
+    }
+
+    public function show($slug)
+    {
+        $profil = InfoUser::where('slug', $slug)->firstOrFail();
+
+        return view('user.profile', [
+        'title' => $profil->name,
+        'dataprofil' => $profil,
+        ]);
     }
 }

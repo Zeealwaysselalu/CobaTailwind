@@ -20,10 +20,17 @@ class InfoUser extends Model
         'about',
         'email',
         'addres',
+        'slug',
+        'imag'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function pengalamanuser()
+    {
+        return $this->hasMany(PengalamanUser::class);
     }
 }

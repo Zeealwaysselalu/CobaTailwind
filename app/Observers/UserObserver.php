@@ -18,6 +18,7 @@ class UserObserver
             'lulusan' => null,
             'email' => $user->email,
             'addres' => '-',
+            'slug' => $user->email,
 
         ]);
     }

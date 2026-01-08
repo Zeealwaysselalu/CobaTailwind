@@ -3,13 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TempImgController;
 use App\Http\Controllers\InfoUserController;
 
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/profile', function () {
-        return view('user.profile', ["dataprofil" => auth('web')->user()->infoUser]);
+        return view('user.profile');
     })->name('profile');
 
     Route::get('/home', function () {
@@ -39,6 +40,15 @@ Route::middleware('auth')->group(function () {
         ]);
     })->name('edit.profile');
     Route::post('/profile/update', [InfoUserController::class, 'edit'])->name('profile.update');
+
+    Route::post('/avatar/upload-temp', [TempImgController::class, 'uploadTemp'])
+        ->name('avatar.upload-temp');
+
+    // Route untuk membatalkan/hapus file di folder 'temp'
+    Route::post('/avatar/revert-temp', [TempImgController::class, 'revertTemp'])
+        ->name('avatar.revert-temp');
+
+    Route::get('/profile/{slug}', [InfoUserController::class, 'show'])->name('user.show');
 });
 
 Route::middleware('guest')->group(function () {
@@ -57,5 +67,5 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::get('/', function () {
-        return view('index');
-    })->name('index');
+    return view('index');
+})->name('index');

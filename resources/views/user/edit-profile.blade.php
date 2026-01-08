@@ -24,6 +24,10 @@
             }
         }
     </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <x-script-j-s>
+    </x-script-j-s>
+
 </head>
 
 <body class="bg-dark-900 font-sans text-gray-300">
@@ -35,7 +39,7 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <span class="font-bold text-lg text-white">Edit Profil</span>
-                <a href="/profile" class="text-sm font-medium text-gray-400 hover:text-white transition">Batal &
+                <a href="/profile/{{ $dataprofil->slug }}" class="text-sm font-medium text-gray-400 hover:text-white transition">Batal &
                     Kembali</a>
             </div>
         </div>
@@ -46,34 +50,60 @@
         <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
             @csrf
 
-            <div class="bg-dark-800 rounded-2xl border border-dark-700 overflow-hidden">
+            <div class="bg-dark-800 rounded-2xl border border-dark-700 overflow-hidden mb-8">
                 <div class="p-6 border-b border-dark-700">
-                    <h2 class="text-lg font-bold text-white">Visual Profil</h2>
-                    <p class="text-sm text-gray-500">Foto profil dan sampul yang menarik perhatian HRD.</p>
+                    <h2 class="text-lg font-bold text-white">Foto Profil</h2>
+                    <p class="text-sm text-gray-400">Wajah profesionalmu di mata perusahaan.</p>
                 </div>
 
-                <div class="p-6 space-y-6">
-                    <div class="flex items-center gap-6">
-                        <div class="relative group cursor-pointer">
-                            <img src="{{ asset('storage/images/' . $dataprofil->image) }}"
-                                class="w-24 h-24 rounded-full border-4 border-dark-700 object-cover group-hover:opacity-75 transition">
-                            <div
-                                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z">
-                                    </path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                            </div>
-                            <input type="file" name="avatar"
-                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                <div class="p-6 flex flex-col sm:flex-row items-center gap-8">
+
+                    <div class="relative group">
+                        <div
+                            class="w-32 h-32 rounded-full p-1 border-2 border-dashed border-dark-600 group-hover:border-primary transition duration-300">
+                            <img id="avatar-preview"
+                                src="{{ $dataprofil->image ? asset('storage/images/' . $dataprofil->image) : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) }}"
+                                class="w-full h-full rounded-full object-cover bg-dark-900">
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-white mb-1">Ganti Foto Profil</label>
-                            <p class="text-xs text-gray-500">JPG, PNG maksimal 2MB. Disarankan rasio 1:1.</p>
+
+                        <div id="loading-overlay"
+                            class="absolute inset-0 rounded-full flex items-center justify-center bg-dark-900/80 backdrop-blur-sm hidden z-20">
+                            <svg class="animate-spin h-8 w-8 text-primary" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                        </div>
+
+                        <label for="avatar-upload"
+                            class="absolute bottom-0 right-0 bg-dark-700 hover:bg-primary text-white p-2.5 rounded-full cursor-pointer shadow-lg border-4 border-dark-800 transition duration-300 z-10 group-hover:scale-110">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </label>
+
+                        <input type="file" id="avatar-upload" class="hidden" accept="image/*" name= "avatar">
+                    </div>
+
+                    <div class="flex-1 text-center sm:text-left">
+                        <h3 class="text-white font-medium mb-1">Unggah Foto Baru</h3>
+                        <p class="text-gray-500 text-sm mb-4">Format JPG, GIF atau PNG. Maksimal ukuran 2MB.</p>
+
+                        <div id="status-indicator"
+                            class="hidden items-center gap-2 text-yellow-500 bg-yellow-500/10 px-3 py-1.5 rounded-lg text-sm w-fit mx-auto sm:mx-0 border border-yellow-500/20">
+                            <span class="relative flex h-2 w-2">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-yellow-500"></span>
+                            </span>
+                            Foto belum disimpan (Temporary)
                         </div>
                     </div>
                 </div>
@@ -165,7 +195,8 @@
             <div class="bg-dark-800 rounded-2xl border border-dark-700 shadow-lg">
                 <div class="p-6 border-b border-dark-700">
                     <h2 class="text-lg font-bold text-white">Keahlian & Skill</h2>
-                    <p class="text-sm text-gray-500">Tulis skill teknis yang kamu kuasai (pisahkan dengan koma).</p>
+                    <p class="text-sm text-gray-500">Tulis skill teknis yang kamu kuasai (pisahkan dengan koma).
+                    </p>
                 </div>
                 <div class="p-6">
                     <label class="block text-sm font-medium text-gray-400 mb-2">Input Skill</label>
@@ -265,7 +296,7 @@
             </div>
 
             <div class="flex items-center justify-end gap-4 pt-4 pb-12">
-                <a href="{{ url('/profile') }}"
+                <a href="{{ url('/profile/' . $dataprofil->slug) }}"
                     class="px-6 py-2.5 rounded-xl border border-dark-600 text-gray-300 font-semibold hover:bg-dark-700 hover:text-white transition">
                     Batal
                 </a>

@@ -15,16 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('username')->nullable();
             $table->string('image')->default('default.jpg')->onDelete('cascade');
+            $table->string('tempimg')->nullable();
             $table->integer('lulusan')->nullable();
             $table->string('jurusan')->default('-');
             $table->string('status')->default('Siap Bekerja');
+            $table->string('slug')->unique();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('about')->default('Pengguna belum menambahkan deskripsi tentang dirinya.');
             $table->string('email')->nullable();
             $table->string('phone')->default('-');
             $table->string('addres')->default('-');
-            $table->string('tempimg')->nullable();
             $table->timestamps();
         });
     }
